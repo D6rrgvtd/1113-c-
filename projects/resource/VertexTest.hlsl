@@ -7,6 +7,7 @@
 cbuffer CBParam : register(b0)
 {
     float4 baseColor;
+    int alostColor;
 };
 
 // ----------------------------------------------------------
@@ -79,6 +80,13 @@ PSInput VS(VSInput vin)
 // ピクセルシェーダー
 float4 PS(PSInput In) : SV_Target0
 {
-    // テクスチャの色を出力
-    return In.color;
+    float4 color = In.color;
+
+    if (alostColor != 0)
+    {
+        color.rgb = 1.0 - color.rgb;
+    }
+
+    return color;
 }
+ 
